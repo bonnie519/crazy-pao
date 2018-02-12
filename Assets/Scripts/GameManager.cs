@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
 			//Debug.Log (score);
 
 			if (life > 0) {
-				this.GameState = GameState.Start;
+				this.gameState = GameState.Start;
 				Invoke ("Restart", restartDelay);
 			} else {
 				getHighScore ();
