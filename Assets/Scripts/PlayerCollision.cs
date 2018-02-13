@@ -15,17 +15,25 @@ public class PlayerCollision : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) {
 		//Debug.Log (collision.collider.tag);
 		if (collision.collider.tag == "Obstacle") {
-			movement.enabled = false;
+			//movement.enabled = false;
 			// if has 0 life left, end game 
+			if (collision.collider.gameObject.GetComponent<Renderer> ().material.color == this.GetComponent<Renderer> ().material.color) {
+				Debug.Log ("same color");
+				collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = true;
+			} else {
+				Debug.Log ("diff color");
 
-			FindObjectOfType<GameManager> ().EndGame ();
+				this.GetComponent<Renderer> ().material.color = blend(this.GetComponent<Renderer> ().material.color,
+					collision.collider.gameObject.GetComponent<Renderer> ().material.color);
+				FindObjectOfType<GameManager> ().EndGame ();
+			}
 			// else
 			//restart game
 		} else if (collision.collider.tag == "Rug") {
 
 			if (!startRug) {
 				startRug = true;
-				//Debug.Log ("enter rug zone");
+				Debug.Log ("enter rug zone");
 				//movement.enabled = false;
 				//Invoke("Decrease", Time.deltaTime);
 				movement.setDecrease (true);
@@ -34,8 +42,16 @@ public class PlayerCollision : MonoBehaviour {
 			if (startRug) {
 				startRug = false;
 				movement.setDecrease (false);
+				Debug.Log ("leave");
 			}
 		}
+	}
+
+	private Color blend(Color c1, Color c2){
+		c1.r *= c2.r;
+		c1.g *= c2.g;
+		c1.b *= c2.b;
+		return c1;
 	}
 
 }

@@ -19,5 +19,6 @@ public class Credit : MonoBehaviour {
 	public void Restart() {
 		PlayerPrefs.SetInt ("CUR", 0);
 		SceneManager.LoadScene (0);
+		PlayerPrefs.SetInt ("LIFE", 3);
 	}
 }

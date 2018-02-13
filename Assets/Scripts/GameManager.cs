@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
 	public static int score = 0;
 	public GameObject completeLevelUI;
 	public GameObject pauseBtn;
-	static int[] scores = new int[3];
+	public Transform player;
 	GameState gameState = GameState.Start;
 	
 	public GameState GameState{ get; set;}
@@ -36,15 +36,16 @@ public class GameManager : MonoBehaviour {
 	public void CompleteLevel() {
 		//Debug.Log ("LEVEL WON!");	
 		pauseBtn.SetActive(false);
-		//scores[2- life] = score;
-		//Debug.Log (score);
 
 		saveScore ();
 		completeLevelUI.SetActive(true);
 
 	}
+
 	private void saveScore() {
-		PlayerPrefs.SetInt("CUR", score);
+		if (PlayerPrefs.GetInt ("CUR") < score)
+				PlayerPrefs.SetInt ("CUR", score);
+		
 		if (!PlayerPrefs.HasKey ("_SCORE"))
 			PlayerPrefs.SetInt ("_SCORE", score);
 		else {
@@ -52,37 +53,32 @@ public class GameManager : MonoBehaviour {
 				PlayerPrefs.SetInt ("_SCORE", score);
 		}
 	}
+
 	public void EndGame() {
 		if (this.gameState != GameState.Dead) {
-			this.gameState = GameState.Dead;
-			Debug.Log ("GAME OVER");
+			
+			//Debug.Log ("GAME OVER");
 			//SceneManager.LoadScene ("Credits");
 			//restart game
-			life -= 1;
-			scores[2- life] = score;
+			//life -= 1;
+			//scores[3- life] = score;
 			//Debug.Log (score);
-
-			if (life > 0) {
-				this.gameState = GameState.Start;
-				Invoke ("Restart", restartDelay);
+			saveScore ();
+			if (PlayerPrefs.GetInt("LIFE") > 0) { 
+				PlayerPrefs.SetInt("LIFE", PlayerPrefs.GetInt("LIFE") - 1);
+				Debug.Log ("life - 1");
 			} else {
-				getHighScore ();
-				saveScore ();
+				player.transform.GetComponent<playerMovement>().enabled = false;
+				//FindObjectOfType<playerMovement> ().enabled = false;
+				//getHighScore ();
+				Debug.Log(PlayerPrefs.GetInt("LIFE"));
+				this.gameState = GameState.Dead;
 				SceneManager.LoadScene ("Credits");
-				life = 3;
 			}
 		}
 
 	}
-	private void getHighScore() {
 
-		for (int i = 0; i < 3; i++) {
-			//Debug.Log ("score "+ scores [i]);
-			if (scores [i] > score)
-				score = scores [i];
-		}
-		Debug.Log (score);
-	}
 	public void setScore(int value) {
 		score = value;
 	}
@@ -91,8 +87,5 @@ public class GameManager : MonoBehaviour {
 	}
 	public void Restart () {
 		SceneManager.LoadScene (SceneManager.GetActiveScene().name);		
-	}
-	void Pause() {
-		//SceneManager.
 	}
 }

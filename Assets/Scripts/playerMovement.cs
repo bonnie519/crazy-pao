@@ -10,13 +10,14 @@ public class playerMovement : MonoBehaviour {
 	private bool isDragging = false, decrease = false;
 	private Vector2 startTouch, swipeDelta;
 	public float decreaseRate = 0.2f;
+	//public GameObject layerObject;
 	// Use this for initialization
 	void Start () {
 		//Debug.Log ("Hello!");
 		//rb.useGravity = false;
 		//rb.AddForce(0,200,500);
 		forwardForce = 1500f;
-		slidewayForce = 800f;
+		slidewayForce = 100f;
 	}
 	private int checkSwipe ()
 	{
@@ -62,25 +63,41 @@ public class playerMovement : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
+		/*foreach (Transform child in layerObject.transform) {
+			if (child.gameObject.GetComponent<Renderer> ().material.color == this.GetComponent<Renderer> ().material.color) {
+				child.transform.GetComponent<BoxCollider> ().isTrigger = true;
+			} else {
+				child.transform.GetComponent<BoxCollider> ().isTrigger = false;
+			}
+		}*/
 		if (decrease) {
 			//Debug.Log (rb.velocity.z);
-			if (rb.velocity.magnitude > 1f)
+			if (rb.velocity.magnitude > 5f)
 				rb.velocity -= rb.velocity * decreaseRate;
 		} else {
 			rb.AddForce (0, 0, forwardForce * Time.deltaTime);//compatible with different frames
-			transform.Translate(Input.acceleration.x, 0, 0);
+			//transform.Translate(Input.acceleration.x, 0, 0);
 			int swipe = checkSwipe ();
-			//if (Input.GetKey ("a"))
-			//	rb.AddForce (-slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-			//if (Input.GetKey ("d"))
-			//	rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+			if (Input.GetKey ("a"))
+				rb.AddForce (-slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+			if (Input.GetKey ("d"))
+				rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
 			if (swipe == 2 || Input.GetKey ("w")) {
 				rb.AddForce (0, slidewayForce * Time.deltaTime, 0, ForceMode.VelocityChange);
 			}
 		}
 		if (rb.position.y < -1f || rb.position.y > 500f) {
-			FindObjectOfType<GameManager> ().EndGame ();
+			this.enabled = false;
+			//FindObjectOfType<GameManager> ().EndGame ();
+			if (PlayerPrefs.GetInt ("LIFE") > 0) {
+				int tmpLife = PlayerPrefs.GetInt ("LIFE");
+				FindObjectOfType<GameManager> ().Restart ();
+				PlayerPrefs.SetInt ("LIFE", tmpLife - 1);
+			} else
+				FindObjectOfType<GameManager> ().EndGame ();
 		}
+		if (PlayerPrefs.GetInt("LIFE") > 0 && rb.position.z > FindObjectOfType<EndTrigger> ().end)
+			FindObjectOfType<GameManager> ().CompleteLevel ();
 		//Debug.Log (rb.velocity.z);
 	}
 	public void setDecrease(bool value) {
@@ -88,3 +105,5 @@ public class playerMovement : MonoBehaviour {
 	}
 		
 }
+
+
