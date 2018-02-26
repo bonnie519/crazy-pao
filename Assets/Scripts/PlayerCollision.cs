@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour {
-
+	Color[] colors = {Color.black,Color.blue,Color.red};
+ 	int index = 0;
 	public playerMovement movement;
 	public float restartDelay = 1f;
 	private bool startRug = false;
@@ -19,12 +20,14 @@ public class PlayerCollision : MonoBehaviour {
 			// if has 0 life left, end game 
 			if (collision.collider.gameObject.GetComponent<Renderer> ().material.color == this.GetComponent<Renderer> ().material.color) {
 				Debug.Log ("same color");
-				collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = true;
+				collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = true;				
+				index = (index++) % colors.Length;
+				this.GetComponent<Renderer> ().material.color = colors [index];
 			} else {
 				Debug.Log ("diff color");
 
-				this.GetComponent<Renderer> ().material.color = blend(this.GetComponent<Renderer> ().material.color,
-					collision.collider.gameObject.GetComponent<Renderer> ().material.color);
+				//this.GetComponent<Renderer> ().material.color = blend(this.GetComponent<Renderer> ().material.color,
+					//collision.collider.gameObject.GetComponent<Renderer> ().material.color);
 				FindObjectOfType<GameManager> ().EndGame ();
 			}
 			// else
