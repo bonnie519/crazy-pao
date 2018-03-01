@@ -21,16 +21,16 @@ public class PlayerCollision : MonoBehaviour {
 		//Debug.Log (collision.collider.tag);
 		if (collision.collider.tag == "Obstacle") {
 			//movement.enabled = false;
-			// if has 0 life left, end game 
+			// if has 0 life left, end game
 			if (collision.collider.gameObject.GetComponent<Renderer> ().material.color == this.GetComponent<Renderer> ().material.color) {
 				Debug.Log ("same color"+this.GetComponent<Renderer> ().material.color);
-				collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = true;				
+				collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = true;
 				//index = (index++) % colors.Length;
 				index = (index + 1) % colors.Length;
 				this.GetComponent<Renderer> ().material.color = colors [index];
 			} else {
 				Debug.Log ("diff color"+this.GetComponent<Renderer> ().material.color);
-				//collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = false;	
+				//collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = false;
 				//Debug.Log (Color.black);
 				//this.GetComponent<Renderer> ().material.color = blend(this.GetComponent<Renderer> ().material.color,
 					//collision.collider.gameObject.GetComponent<Renderer> ().material.color);
