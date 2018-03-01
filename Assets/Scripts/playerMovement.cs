@@ -9,7 +9,7 @@ public class playerMovement : MonoBehaviour {
 	//public Swipe swipe;
 	private bool isDragging = false, decrease = false;
 	private Vector2 startTouch, swipeDelta;
-	public float decreaseRate = 0.2f;
+	public float decreaseRate = 0.4f;
 	//public GameObject layerObject;
 	// Use this for initialization
 	void Start () {

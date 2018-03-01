@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour {
 	Color[] colors = {Color.black,Color.blue,Color.red};
- 	int index = 0;
+ 	int index = -1;
 	public playerMovement movement;
 	public float restartDelay = 1f;
 	private bool startRug = false;
@@ -12,20 +12,26 @@ public class PlayerCollision : MonoBehaviour {
 		movement.enabled = true;
 		//movement.setForce (200f,0);
 	}
-
+	public Color getNextColor() {
+		//if (index == -1)
+		//	return this.GetComponent<Renderer> ().material.color;
+		return colors [(index+1)% 3];
+	}
 	void OnCollisionEnter(Collision collision) {
 		//Debug.Log (collision.collider.tag);
 		if (collision.collider.tag == "Obstacle") {
 			//movement.enabled = false;
 			// if has 0 life left, end game 
 			if (collision.collider.gameObject.GetComponent<Renderer> ().material.color == this.GetComponent<Renderer> ().material.color) {
-				Debug.Log ("same color");
+				Debug.Log ("same color"+this.GetComponent<Renderer> ().material.color);
 				collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = true;				
-				index = (index++) % colors.Length;
+				//index = (index++) % colors.Length;
+				index = (index + 1) % colors.Length;
 				this.GetComponent<Renderer> ().material.color = colors [index];
 			} else {
-				Debug.Log ("diff color");
-
+				Debug.Log ("diff color"+this.GetComponent<Renderer> ().material.color);
+				//collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = false;	
+				//Debug.Log (Color.black);
 				//this.GetComponent<Renderer> ().material.color = blend(this.GetComponent<Renderer> ().material.color,
 					//collision.collider.gameObject.GetComponent<Renderer> ().material.color);
 				FindObjectOfType<GameManager> ().EndGame ();

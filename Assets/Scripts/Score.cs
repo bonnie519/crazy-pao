@@ -9,10 +9,14 @@ public class Score : MonoBehaviour {
 	private int coinScore = 0, disScore = 0;
 	public Text scoreText, heartText;
 	private static int hearts = 3;
+	public Image nextColor;
 
 	void Start()
 	{
 		PlayerPrefs.SetInt ("LIFE", hearts);
+
+		//init = player.GetComponent<Renderer> ().material.color;
+		//nextColor.color = init;
 	}
 
 	// Update is called once per frame
@@ -22,6 +26,8 @@ public class Score : MonoBehaviour {
 		distanceBonus();
 		scoreText.text = myScore().ToString ("0");
 		heartText.text = "Hearts:" + PlayerPrefs.GetInt("LIFE").ToString ();
+		nextColor.color = player.GetComponent<PlayerCollision> ().getNextColor ();
+		//nextColor = player.GetComponent<PlayerCollision> ().getNextColor ();
 		FindObjectOfType<GameManager>().setScore(myScore());
 		Debug.Log ("Score:"+ PlayerPrefs.GetInt("LIFE"));
 	}
