@@ -21,8 +21,8 @@ public class PlayerCollision : MonoBehaviour {
 			if (collision.collider.gameObject.GetComponent<Renderer> ().material.color == this.GetComponent<Renderer> ().material.color) {
 				Debug.Log ("same color");
 				collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = true;				
-				index = (index++) % colors.Length;
-				this.GetComponent<Renderer> ().material.color = colors [index];
+				//index = (index++) % colors.Length;
+				this.GetComponent<Renderer> ().material.color = colors [(index++) % colors.Length];
 			} else {
 				Debug.Log ("diff color");
 
