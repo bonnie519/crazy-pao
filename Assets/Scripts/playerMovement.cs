@@ -10,6 +10,7 @@ public class playerMovement : MonoBehaviour {
 	private bool isDragging = false, decrease = false;
 	private Vector2 startTouch, swipeDelta;
 	public float decreaseRate = 0.4f;
+	bool preSwipeUp = false;
 	//public GameObject layerObject;
 	// Use this for initialization
 	void Start () {
@@ -17,11 +18,11 @@ public class playerMovement : MonoBehaviour {
 		//rb.useGravity = false;
 		//rb.AddForce(0,200,500);
 		forwardForce = 1500f;
-		slidewayForce = 100f;
+		slidewayForce = 400f;
 	}
-	private int checkSwipe ()
+	private bool checkSwipe ()
 	{
-		int res = -1;
+		bool res = false;
 		//swipeL = swipeR = swipeU = false;
 		//get input
 		if (Input.touches.Length > 0) {
@@ -49,7 +50,7 @@ public class playerMovement : MonoBehaviour {
 			float y = swipeDelta.y;
 			if (Mathf.Abs (x) < Mathf.Abs (y)) {
 				if (y > 0) {
-					res = 2;
+					res = true;
 				}
 			}
 			Reset ();
@@ -76,15 +77,19 @@ public class playerMovement : MonoBehaviour {
 				rb.velocity -= rb.velocity * decreaseRate;
 		} else {
 			rb.AddForce (0, 0, forwardForce * Time.deltaTime);//compatible with different frames
-			//transform.Translate(Input.acceleration.x, 0, 0);
-			int swipe = checkSwipe ();
-			if (Input.GetKey ("a"))
-				rb.AddForce (-slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-			if (Input.GetKey ("d"))
-				rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-			if (swipe == 2 || Input.GetKey ("w")) {
-				rb.AddForce (0, slidewayForce * Time.deltaTime, 0, ForceMode.VelocityChange);
+			transform.Translate(Input.acceleration.x, 0, 0);
+			bool cur = checkSwipe () || Input.GetKey("w");
+
+			if (preSwipeUp == false) {
+				/*if (Input.GetKey ("a"))
+					rb.AddForce (-slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+				if (Input.GetKey ("d"))
+					rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);*/
+				if (cur == true) {
+					rb.AddForce (0, slidewayForce * Time.deltaTime, 0, ForceMode.VelocityChange);
+				}
 			}
+			preSwipeUp = cur;
 		}
 		if (rb.position.y < -1f || rb.position.y > 500f) {
 			this.enabled = false;

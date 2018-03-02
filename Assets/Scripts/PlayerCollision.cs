@@ -23,13 +23,14 @@ public class PlayerCollision : MonoBehaviour {
 			//movement.enabled = false;
 			// if has 0 life left, end game
 			if (collision.collider.gameObject.GetComponent<Renderer> ().material.color == this.GetComponent<Renderer> ().material.color) {
-				Debug.Log ("same color"+this.GetComponent<Renderer> ().material.color);
+				//Debug.Log ("same color"+this.GetComponent<Renderer> ().material.color);
 				collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = true;
 				//index = (index++) % colors.Length;
 				index = (index + 1) % colors.Length;
 				this.GetComponent<Renderer> ().material.color = colors [index];
+				FindObjectOfType<Score> ().increaseScore (15);
 			} else {
-				Debug.Log ("diff color"+this.GetComponent<Renderer> ().material.color);
+				//Debug.Log ("diff color"+this.GetComponent<Renderer> ().material.color);
 				//collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = false;
 				//Debug.Log (Color.black);
 				//this.GetComponent<Renderer> ().material.color = blend(this.GetComponent<Renderer> ().material.color,
@@ -42,7 +43,7 @@ public class PlayerCollision : MonoBehaviour {
 
 			if (!startRug) {
 				startRug = true;
-				Debug.Log ("enter rug zone");
+				//Debug.Log ("enter rug zone");
 				//movement.enabled = false;
 				//Invoke("Decrease", Time.deltaTime);
 				movement.setDecrease (true);
@@ -51,7 +52,7 @@ public class PlayerCollision : MonoBehaviour {
 			if (startRug) {
 				startRug = false;
 				movement.setDecrease (false);
-				Debug.Log ("leave");
+				//Debug.Log ("leave");
 			}
 		}
 	}

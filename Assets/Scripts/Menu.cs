@@ -6,7 +6,8 @@ public class Menu : MonoBehaviour {
 	public void StartGame() {
 		SceneManager.LoadScene (2);		
 		PlayerPrefs.SetInt ("LIFE", 3);
-		Debug.Log ("menu:"+PlayerPrefs.GetInt("LIFE"));
+		PlayerPrefs.SetInt ("CUR", 0);
+		//Debug.Log ("menu:"+PlayerPrefs.GetInt("LIFE"));
 	}
 
 	public void ChooseLevel(int levelIndex) {

@@ -453,7 +453,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000025243, y: 72}
+  m_AnchoredPosition: {x: 0, y: 72}
   m_SizeDelta: {x: 245.1, y: 35.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &215431573
@@ -624,10 +624,10 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: RESTART
+  m_Text: REPLAY
 --- !u!222 &442335799
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -820,9 +820,9 @@ RectTransform:
   m_Father: {fileID: 61402387}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 180}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -92}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1001614780
@@ -899,8 +899,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 188}
-  m_SizeDelta: {x: 105.7, y: 48.699997}
+  m_AnchoredPosition: {x: 0, y: 40}
+  m_SizeDelta: {x: 105, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1448114855
 MonoBehaviour:
@@ -1033,7 +1033,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -70}
+  m_AnchoredPosition: {x: 0, y: -60}
   m_SizeDelta: {x: 530.6, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1459101756
@@ -1057,10 +1057,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 772fca37ea9295248b06d1be4660c8f1, type: 3}
-    m_FontSize: 57
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 5
     m_MaxSize: 57
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -1111,8 +1111,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.000030518, y: 80}
-  m_SizeDelta: {x: 105.7, y: 48.699997}
+  m_AnchoredPosition: {x: 0, y: 95}
+  m_SizeDelta: {x: 105, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1798018852
 MonoBehaviour:
@@ -1227,3 +1227,4 @@ MonoBehaviour:
   restartDelay: 2
   completeLevelUI: {fileID: 0}
   pauseBtn: {fileID: 0}
+  player: {fileID: 0}

@@ -15,7 +15,7 @@ public class Coin : MonoBehaviour
 	{
 		//increase score via some UIManager
 		//destroy this gameobject
-		Debug.Log("you hit a coin");
+		//Debug.Log("you hit a coin");
 		FindObjectOfType<Score>().increaseScore (scorePoints);
 		Destroy (this.gameObject);
 	}

@@ -44,16 +44,16 @@ public class GM : MonoBehaviour
         {
             zScenePos += 3;
             Instantiate(coinObj, new Vector3(6, 1, zScenePos), coinObj.rotation);
-            Debug.Log(zScenePos);
+            //Debug.Log(zScenePos);
         }
        else if (zScenePos < 90)
        {
             Instantiate(coinObj, new Vector3(-6, 1, zScenePos), coinObj.rotation);
             zScenePos += 3;
-      } else
+      } /*else
        {
            Instantiate(coinObj, new Vector3(0, 1, 105), coinObj.rotation);
-       }
+       }*/
 
         // timeTotal += Time.deltaTime;
 

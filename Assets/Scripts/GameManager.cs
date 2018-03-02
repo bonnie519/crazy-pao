@@ -23,11 +23,11 @@ public class GameManager : MonoBehaviour {
 		}
 	}*/
 	//bool gameHasEnded = false;
-	private static int life = 3;
+	//private static int life = 3;
 	public float restartDelay = 2f;
 	public static int score = 0;
 	public GameObject completeLevelUI;
-	public GameObject pauseBtn;
+	public GameObject panel;
 	public Transform player;
 	GameState gameState = GameState.Start;
 	
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
 
 	public void CompleteLevel() {
 		//Debug.Log ("LEVEL WON!");	
-		pauseBtn.SetActive(false);
+		panel.SetActive(false);
 
 		saveScore ();
 		completeLevelUI.SetActive(true);
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
 				player.transform.GetComponent<playerMovement>().enabled = false;
 				//FindObjectOfType<playerMovement> ().enabled = false;
 				//getHighScore ();
-				Debug.Log(PlayerPrefs.GetInt("LIFE"));
+				//Debug.Log(PlayerPrefs.GetInt("LIFE"));
 				this.gameState = GameState.Dead;
 				SceneManager.LoadScene ("Credits");
 			}
