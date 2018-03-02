@@ -8,7 +8,7 @@ public class Coin : MonoBehaviour
 
 	void Update()
 	{
-		transform.Rotate (Vector3.up, Time.deltaTime * rotateSpeed);
+		transform.Rotate (0, 0, 3);
 	}
 
 	void OnTriggerEnter(Collider col)
