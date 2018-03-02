@@ -33,7 +33,7 @@ public class PlayerCollision : MonoBehaviour {
 				//collision.collider.transform.GetComponent<BoxCollider> ().isTrigger = false;
 				//Debug.Log (Color.black);
 				//this.GetComponent<Renderer> ().material.color = blend(this.GetComponent<Renderer> ().material.color,
-					//collision.collider.gameObject.GetComponent<Renderer> ().material.color);
+				//collision.collider.gameObject.GetComponent<Renderer> ().material.color);
 				FindObjectOfType<GameManager> ().EndGame ();
 			}
 			// else
