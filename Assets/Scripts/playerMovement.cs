@@ -4,12 +4,12 @@ public class playerMovement : MonoBehaviour {
 
 	public Rigidbody rb;
 
-	public float forwardForce = 1500f;
+	public float forwardForce;
 	public float slidewayForce;
 	//public Swipe swipe;
 	private bool isDragging = false, decrease = false;
 	private Vector2 startTouch, swipeDelta;
-	public float decreaseRate = 0.4f;
+	public float decreaseRate = 0.2f;
 	bool preSwipeUp = false;
 	//public GameObject layerObject;
 	// Use this for initialization
@@ -18,7 +18,7 @@ public class playerMovement : MonoBehaviour {
 		//rb.useGravity = false;
 		//rb.AddForce(0,200,500);
 		forwardForce = 1500f;
-		slidewayForce = 400f;
+		slidewayForce = 500f;
 	}
 	private bool checkSwipe ()
 	{
@@ -72,25 +72,31 @@ public class playerMovement : MonoBehaviour {
 			}
 		}*/
 		if (decrease) {
-			//Debug.Log (rb.velocity.z);
-			if (rb.velocity.magnitude > 5f)
+			if (rb.velocity.z > 3f) {
+				//Vector3 tmp = rb.velocity 
+				//Debug.Log (rb.velocity.z + "," + tmp.z);
+				//if (tmp.magnitude >= 2f)
 				rb.velocity -= rb.velocity * decreaseRate;
+			}
+			Debug.Log (rb.velocity.z);
 		} else {
 			rb.AddForce (0, 0, forwardForce * Time.deltaTime);//compatible with different frames
 			transform.Translate(Input.acceleration.x, 0, 0);
 			bool cur = checkSwipe () || Input.GetKey("w");
 
 			if (preSwipeUp == false) {
-				/*if (Input.GetKey ("a"))
-					rb.AddForce (-slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-				if (Input.GetKey ("d"))
-					rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);*/
+				
 				if (cur == true) {
 					rb.AddForce (0, slidewayForce * Time.deltaTime, 0, ForceMode.VelocityChange);
 				}
 			}
 			preSwipeUp = cur;
+			/*if (Input.GetKey ("a"))
+				rb.AddForce (-slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+			if (Input.GetKey ("d"))
+				rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);*/
 		}
+
 		if (rb.position.y < -1f || rb.position.y > 500f) {
 			this.enabled = false;
 			//FindObjectOfType<GameManager> ().EndGame ();

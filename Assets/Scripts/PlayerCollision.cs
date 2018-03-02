@@ -40,7 +40,7 @@ public class PlayerCollision : MonoBehaviour {
 			// else
 			//restart game
 		} else if (collision.collider.tag == "Rug") {
-
+			Debug.Log ("rug");
 			if (!startRug) {
 				startRug = true;
 				//Debug.Log ("enter rug zone");

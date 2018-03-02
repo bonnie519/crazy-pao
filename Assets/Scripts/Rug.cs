@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Rug : MonoBehaviour {
 	
-	public float backwardForce = 70f;
-
-	void Update()
-	{
+	void OnCollisionEnter(Collision collision) {
+		if (collision.collider.tag == "Player") {
+			Debug.Log ("player");
+		}
 	}
 }
