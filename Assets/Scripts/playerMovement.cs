@@ -71,17 +71,16 @@ public class playerMovement : MonoBehaviour {
 				child.transform.GetComponent<BoxCollider> ().isTrigger = false;
 			}
 		}*/
+		transform.Translate(Input.acceleration.x, 0, 0);
 		if (decrease) {
-			if (rb.velocity.z > 3f) {
-				//Vector3 tmp = rb.velocity 
-				//Debug.Log (rb.velocity.z + "," + tmp.z);
-				//if (tmp.magnitude >= 2f)
-				rb.velocity -= rb.velocity * decreaseRate;
+			if (rb.velocity.z > 1f) {
+				rb.velocity *= 1 - decreaseRate;
+			} else {
+				rb.velocity = new Vector3 (0, 0, 0.8f);
 			}
 			Debug.Log (rb.velocity.z);
 		} else {
 			rb.AddForce (0, 0, forwardForce * Time.deltaTime);//compatible with different frames
-			transform.Translate(Input.acceleration.x, 0, 0);
 			bool cur = checkSwipe () || Input.GetKey("w");
 
 			if (preSwipeUp == false) {
