@@ -17,8 +17,8 @@ public class playerMovement : MonoBehaviour {
 		//Debug.Log ("Hello!");
 		//rb.useGravity = false;
 		//rb.AddForce(0,200,500);
-		forwardForce = 1500f;
-		slidewayForce = 500f;
+		forwardForce = 1100f;
+		slidewayForce = 100f;
 	}
 	private bool checkSwipe ()
 	{
@@ -91,10 +91,10 @@ public class playerMovement : MonoBehaviour {
 				}
 			}
 			preSwipeUp = cur;
-			/*if (Input.GetKey ("a"))
+			if (Input.GetKey ("a"))
 				rb.AddForce (-slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
 			if (Input.GetKey ("d"))
-				rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);*/
+				rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
 		}
 
 		if (rb.position.y < -1f || rb.position.y > 500f) {
