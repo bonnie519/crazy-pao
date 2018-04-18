@@ -9,16 +9,37 @@ public class playerMovement : MonoBehaviour {
 	//public Swipe swipe;
 	private bool isDragging = false, decrease = false;
 	private Vector2 startTouch, swipeDelta;
-	public float decreaseRate = 0.2f;
+	public float decreaseRate = 0.8f;
+	float speed = 0.0f;
 	bool preSwipeUp = false;
+	float x_pos = 0.0f;
 	//public GameObject layerObject;
 	// Use this for initialization
 	void Start () {
 		//Debug.Log ("Hello!");
 		//rb.useGravity = false;
 		//rb.AddForce(0,200,500);
-		forwardForce = 1100f;
-		slidewayForce = 100f;
+		switch(PlayerPrefs.GetInt("DIFFICULTY")){
+		case 0:
+			{
+				forwardForce = 800f;
+				slidewayForce = 100f;
+			}
+			break;
+		case 1:
+			{
+				forwardForce = 950f;
+				slidewayForce = 150f;
+			}
+			break;
+		case 2:
+			{
+				forwardForce = 1200f;
+				slidewayForce = 200f;
+			}
+			break;
+		};
+
 	}
 	private bool checkSwipe ()
 	{
@@ -64,29 +85,34 @@ public class playerMovement : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
-		/*foreach (Transform child in layerObject.transform) {
-			if (child.gameObject.GetComponent<Renderer> ().material.color == this.GetComponent<Renderer> ().material.color) {
-				child.transform.GetComponent<BoxCollider> ().isTrigger = true;
-			} else {
-				child.transform.GetComponent<BoxCollider> ().isTrigger = false;
-			}
-		}*/
-		transform.Translate(Input.acceleration.x, 0, 0);
 		if (decrease) {
-			if (rb.velocity.z > 1f) {
-				rb.velocity *= 1 - decreaseRate;
-			} else {
-				rb.velocity = new Vector3 (0, 0, 0.8f);
-			}
-			Debug.Log (rb.velocity.z);
+			int x_axis = 0;
+			if (Input.acceleration.x > 0.05 || Input.GetKey("d"))
+				x_axis = 1;
+			if (Input.acceleration.x < -0.05 || Input.GetKey("a"))
+				x_axis = -1;
+			/*if (rb.velocity.z > 1.25f) {
+				float tmp = rb.velocity.z * (1 - decreaseRate);
+				rb.velocity = new Vector3(x_axis * tmp, 0, tmp);
+				//1 - decreaseRate;
+			} else {*/
+			rb.velocity = new Vector3(x_axis * this.speed, 0, this.speed);
+			//}
+			//transform.Translate (x_axis * rb.velocity.z * Time.deltaTime,0,0);
+			//Debug.Log ("decrease" + x_axis+" "+ this.speed);
 		} else {
 			rb.AddForce (0, 0, forwardForce * Time.deltaTime);//compatible with different frames
+			//transform.Translate(Input.acceleration.x, 0, 0);
+			float offset = Input.acceleration.x;
+			x_pos = rb.position.x + offset;
+			if (x_pos >= -7f && x_pos <= 7f)
+				transform.Translate(offset, 0, 0);
 			bool cur = checkSwipe () || Input.GetKey("w");
 
 			if (preSwipeUp == false) {
 				
 				if (cur == true) {
-					rb.AddForce (0, slidewayForce * Time.deltaTime, 0, ForceMode.VelocityChange);
+					rb.AddForce (0, 4 * slidewayForce * Time.deltaTime, 0, ForceMode.VelocityChange);
 				}
 			}
 			preSwipeUp = cur;
@@ -94,6 +120,7 @@ public class playerMovement : MonoBehaviour {
 				rb.AddForce (-slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
 			if (Input.GetKey ("d"))
 				rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+			//Debug.Log (rb.velocity.z);
 		}
 
 		if (rb.position.y < -1f || rb.position.y > 500f) {
@@ -112,8 +139,10 @@ public class playerMovement : MonoBehaviour {
 	}
 	public void setDecrease(bool value) {
 		decrease = value;
+		float tmp = rb.velocity.z;
+		this.speed = tmp * decreaseRate;
 	}
-		
+
 }
 
 

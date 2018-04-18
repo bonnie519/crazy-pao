@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Rug : MonoBehaviour {
-	
-	void OnCollisionEnter(Collision collision) {
-		if (collision.collider.tag == "Player") {
-			Debug.Log ("player");
+	public Transform player;
+	//void Start() {
+		//Debug.Log (rug.GetComponent<MeshFilter> ().mesh.bounds.size);
+	//}
+	void OnTriggerEnter(Collider col) {
+		if (col.tag == "Player") {
+			//Debug.Log ("enter rug");
+			player.GetComponent<playerMovement> ().setDecrease (true);
 		}
+	}
+	void OnTriggerExit(Collider col) {
+		//Debug.Log ("leave rug");
+		FindObjectOfType<playerMovement> ().setDecrease (false);
 	}
 }
