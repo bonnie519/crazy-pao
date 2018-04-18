@@ -17,8 +17,8 @@ public class playerMovement : MonoBehaviour {
 		//Debug.Log ("Hello!");
 		//rb.useGravity = false;
 		//rb.AddForce(0,200,500);
-		forwardForce = 1500f;
-		slidewayForce = 500f;
+		forwardForce = 1100f;
+		slidewayForce = 100f;
 	}
 	private bool checkSwipe ()
 	{
@@ -71,17 +71,16 @@ public class playerMovement : MonoBehaviour {
 				child.transform.GetComponent<BoxCollider> ().isTrigger = false;
 			}
 		}*/
+		transform.Translate(Input.acceleration.x, 0, 0);
 		if (decrease) {
-			if (rb.velocity.z > 3f) {
-				//Vector3 tmp = rb.velocity 
-				//Debug.Log (rb.velocity.z + "," + tmp.z);
-				//if (tmp.magnitude >= 2f)
-				rb.velocity -= rb.velocity * decreaseRate;
+			if (rb.velocity.z > 1f) {
+				rb.velocity *= 1 - decreaseRate;
+			} else {
+				rb.velocity = new Vector3 (0, 0, 0.8f);
 			}
 			Debug.Log (rb.velocity.z);
 		} else {
 			rb.AddForce (0, 0, forwardForce * Time.deltaTime);//compatible with different frames
-			transform.Translate(Input.acceleration.x, 0, 0);
 			bool cur = checkSwipe () || Input.GetKey("w");
 
 			if (preSwipeUp == false) {
@@ -91,10 +90,10 @@ public class playerMovement : MonoBehaviour {
 				}
 			}
 			preSwipeUp = cur;
-			/*if (Input.GetKey ("a"))
+			if (Input.GetKey ("a"))
 				rb.AddForce (-slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
 			if (Input.GetKey ("d"))
-				rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);*/
+				rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
 		}
 
 		if (rb.position.y < -1f || rb.position.y > 500f) {
