@@ -36,4 +36,7 @@ public class Menu : MonoBehaviour {
 		//hide setting panel ui
 		setting.SetActive (false);
 	}
+	public void Quit() {
+		Application.Quit ();
+	}
 }

@@ -15,7 +15,7 @@ public class playerName : MonoBehaviour {
 		//得到主角对象
 		hero = this.gameObject;
 		camera = Camera.main;
-		npcHeight = 0.5f;
+		npcHeight = 1.2f;
 		this.name = PlayerPrefs.GetString("Name");
 	}
 

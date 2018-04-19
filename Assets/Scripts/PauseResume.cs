@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseResume : MonoBehaviour {
 	public static bool IsPaused = false;
@@ -14,14 +15,14 @@ public class PauseResume : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
+		/*if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
 			if (IsPaused) {
 				Resume ();
 			}
 			else {
 				Pause ();
 			}
-		} 
+		} */
 	}
 
 	public void Resume(){
@@ -39,6 +40,7 @@ public class PauseResume : MonoBehaviour {
 	}
 
 	public void Restart() {
-		
+		SceneManager.LoadScene (0);
+		Time.timeScale = 1f;
 	}
 }
