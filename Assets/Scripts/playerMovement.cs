@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerMovement : MonoBehaviour {
 
 	public Rigidbody rb;
-
+	//public GameObject introText;
 	public float forwardForce;
 	public float slidewayForce;
 	//public Swipe swipe;
@@ -16,19 +17,22 @@ public class playerMovement : MonoBehaviour {
 	//public GameObject layerObject;
 	// Use this for initialization
 	void Start () {
-		//Debug.Log ("Hello!");
-		//rb.useGravity = false;
-		//rb.AddForce(0,200,500);
+		
+		if (SceneManager.GetActiveScene ().buildIndex == 1) {
+			//Instantiate (introText);
+
+			FindObjectOfType<PauseResume> ().showIntro ();
+		}
 		switch(PlayerPrefs.GetInt("DIFFICULTY")){
 		case 0:
 			{
-				forwardForce = 800f;
-				slidewayForce = 100f;
+				forwardForce = 900f;
+				slidewayForce = 120f;
 			}
 			break;
 		case 1:
 			{
-				forwardForce = 950f;
+				forwardForce = 1000f;
 				slidewayForce = 150f;
 			}
 			break;
@@ -142,7 +146,10 @@ public class playerMovement : MonoBehaviour {
 		float tmp = rb.velocity.z;
 		this.speed = tmp * decreaseRate;
 	}
-
+	public void startPlay()
+	{
+		Time.timeScale = 1f;
+	}
 }
 
 

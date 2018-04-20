@@ -7,11 +7,7 @@ public class PauseResume : MonoBehaviour {
 	public static bool IsPaused = false;
 
 	public GameObject pauseMenuUI;
-
-	// Use this for initialization
-	void Start () {
-		//pauseMenuUI.SetActive (false);
-	}
+	public GameObject intro;
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,11 +25,9 @@ public class PauseResume : MonoBehaviour {
 		pauseMenuUI.SetActive (false);
 		Time.timeScale = 1f;
 		IsPaused = false;
-		Debug.Log ("resume");
 	}
 
 	public void Pause(){
-		Debug.Log ("pause");
 		pauseMenuUI.SetActive (true);
 		Time.timeScale = 0f;
 		IsPaused = true;
@@ -43,4 +37,16 @@ public class PauseResume : MonoBehaviour {
 		SceneManager.LoadScene (0);
 		Time.timeScale = 1f;
 	}
+
+	public void showIntro() {
+		Time.timeScale = 0f;
+		intro.SetActive (true);
+
+	}
+
+	public void startPlay() {
+		intro.SetActive (false);
+		Time.timeScale = 1f;
+	}
+
 }

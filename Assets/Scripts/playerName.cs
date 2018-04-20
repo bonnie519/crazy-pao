@@ -7,7 +7,6 @@ public class playerName : MonoBehaviour {
 	private Camera camera;
 	public string name;
 	GameObject hero;
-
 	float npcHeight;
 
 	void Start ()
@@ -17,6 +16,7 @@ public class playerName : MonoBehaviour {
 		camera = Camera.main;
 		npcHeight = 1.2f;
 		this.name = PlayerPrefs.GetString("Name");
+
 	}
 
 	void OnGUI()

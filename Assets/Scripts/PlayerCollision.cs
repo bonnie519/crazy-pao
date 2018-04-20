@@ -8,7 +8,7 @@ public class PlayerCollision : MonoBehaviour {
  	int index = -1;
 	public playerMovement movement;
 	public float restartDelay = 1f;
-	private bool startRug = false;
+
 
     public GameObject FlyTextObj1;
     public Transform CameraTrans;
@@ -16,7 +16,7 @@ public class PlayerCollision : MonoBehaviour {
     public GameObject FlyTextObj2;
 
     public GameObject FlyTextObj_death;
-
+	public GameObject sphere;
     private void Restart() {
 		movement.enabled = true;
 		//movement.setForce (200f,0);
@@ -26,13 +26,15 @@ public class PlayerCollision : MonoBehaviour {
 		//	return this.GetComponent<Renderer> ().material.color;
 		return colors [(index+1)% 4];
 	}
+
 	void OnTriggerEnter(Collider col) {
         
 
         if (col.tag == "Obstacle") {
 
-
+			FindObjectOfType<next> ().setPlayerHit (col.gameObject);
             //movement.enabled = false;
+			FindObjectOfType<next> ().setPlayer ();
             // if has 0 life left, end game
             if ((this.GetComponent<MeshFilter> ().mesh.vertices[0] == col.GetComponent<MeshFilter> ().mesh.vertices[0]) || 
 				col.gameObject.GetComponent<Renderer> ().material.color == this.GetComponent<Renderer> ().material.color) {
@@ -87,7 +89,7 @@ public class PlayerCollision : MonoBehaviour {
 //			print ("col type is : " + this.GetComponent<MeshFilter> ().mesh + " " + this.GetComponent<MeshFilter> ().mesh.vertices[1]);
 //			print ("this type is: " + col.GetComponent<MeshFilter> ().mesh + " " + col.GetComponent<MeshFilter> ().mesh.vertices[1]);
 			this.GetComponent<MeshFilter> ().mesh = col.GetComponent<MeshFilter> ().mesh;
-
+			//Debug.Log (col.GetComponent<MeshFilter>().mesh);
 			// else
 			//restart game
 			Destroy(col.gameObject);

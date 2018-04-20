@@ -9,8 +9,9 @@ public class Score : MonoBehaviour {
 	private int coinScore = 0;
 	public Text scoreText, heartText;
 	//private static int hearts = 3;
-	public Image nextColor;
+	//public Image curColor;
 	public Text levelText;
+
 	void Start()
 	{
 		//PlayerPrefs.SetInt ("LIFE", hearts);
@@ -27,18 +28,21 @@ public class Score : MonoBehaviour {
 		if (FindObjectOfType<GameManager>().GameState == GameState.Dead) return;
 		scoreText.text = myScore().ToString ("0");
 		heartText.text = PlayerPrefs.GetInt("LIFE").ToString ();
-		nextColor.color = player.GetComponent<PlayerCollision> ().getNextColor ();
+		//curColor.color = player.GetComponent<Renderer>().material.color;
 		//nextColor = player.GetComponent<PlayerCollision> ().getNextColor ();
 		FindObjectOfType<GameManager>().setScore(myScore());
+
 		//Debug.Log ("Score:"+ PlayerPrefs.GetInt("LIFE"));
 	}
+
+
 
 	public int myScore()
 	{
 		return coinScore;
 	}
-
-	/*private void distanceBonus() {
+	/*
+	private void distanceBonus() {
 		int dis = (int)(player.position.z);
 		disScore = 5 * dis / 50;
 	}*/
