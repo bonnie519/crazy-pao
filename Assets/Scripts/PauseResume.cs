@@ -46,6 +46,7 @@ public class PauseResume : MonoBehaviour {
 
 	public void startPlay() {
 		intro.SetActive (false);
+		FindObjectOfType<playerName> ().enabled = true;
 		Time.timeScale = 1f;
 	}
 

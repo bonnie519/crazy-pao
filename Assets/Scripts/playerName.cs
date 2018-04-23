@@ -14,7 +14,7 @@ public class playerName : MonoBehaviour {
 		//得到主角对象
 		hero = this.gameObject;
 		camera = Camera.main;
-		npcHeight = 1.2f;
+		npcHeight = 1f;
 		this.name = PlayerPrefs.GetString("Name");
 
 	}
@@ -32,8 +32,8 @@ public class playerName : MonoBehaviour {
 		//算NPC名称的高
 		Vector2 nameSize = GUI.skin.label.CalcSize (new GUIContent(this.name));
 
-		GUI.color = Color.green;
-		GUI.skin.label.fontSize = 20;//字体大小
+		GUI.color = Color.black;
+		GUI.skin.label.fontSize = 35;//字体大小
 
 		//制NPC名称
 		GUI.Label(new Rect(position.x - (nameSize.x/2),position.y - nameSize.y ,nameSize.x,nameSize.y), name);

@@ -85,10 +85,10 @@ public class Credit : MonoBehaviour {
         }
 	
         /*Array.Sort(dataInt);
-        Array.Reverse(dataInt);*/
+        Array.Reverse(dataInt);
         for (int i = 0; i < dataInt.Length; i++) {
             Debug.Log(dataInt[i]);
-        }
+        }*/
 		
         int length = (dataInt.Length > 5) ? 5 : dataInt.Length;
 
@@ -102,7 +102,7 @@ public class Credit : MonoBehaviour {
 		}
 		//scoreText.text += "\n\n" + "Top 5 Scores";
 		if (top5 == null) return;
-		Debug.Log ("xxx");
+		//Debug.Log ("xxx");
 		for (int i = 0; i < length; i++) {
 			Debug.Log(top5[i]);
 		}

@@ -20,8 +20,9 @@ public class playerMovement : MonoBehaviour {
 		
 		if (SceneManager.GetActiveScene ().buildIndex == 1) {
 			//Instantiate (introText);
-
+			FindObjectOfType<playerName>().enabled = false;
 			FindObjectOfType<PauseResume> ().showIntro ();
+
 		}
 		switch(PlayerPrefs.GetInt("DIFFICULTY")){
 		case 0:
@@ -105,12 +106,12 @@ public class playerMovement : MonoBehaviour {
 			//transform.Translate (x_axis * rb.velocity.z * Time.deltaTime,0,0);
 			//Debug.Log ("decrease" + x_axis+" "+ this.speed);
 		} else {
-			rb.AddForce (0, 0, forwardForce * Time.deltaTime);//compatible with different frames
+			rb.AddForce (0,0,forwardForce * Time.deltaTime);//compatible with different frames
 			//transform.Translate(Input.acceleration.x, 0, 0);
 			float offset = Input.acceleration.x;
 			x_pos = rb.position.x + offset;
 			if (x_pos >= -7f && x_pos <= 7f)
-				transform.Translate(offset, 0, 0);
+				transform.Translate(0, -offset, 0);//change due to rotation of player transform
 			bool cur = checkSwipe () || Input.GetKey("w");
 
 			if (preSwipeUp == false) {
@@ -121,7 +122,7 @@ public class playerMovement : MonoBehaviour {
 			}
 			preSwipeUp = cur;
 			if (Input.GetKey ("a"))
-				rb.AddForce (-slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+				rb.AddForce (-slidewayForce * Time.deltaTime, 0, 0,ForceMode.VelocityChange);
 			if (Input.GetKey ("d"))
 				rb.AddForce (slidewayForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
 			//Debug.Log (rb.velocity.z);

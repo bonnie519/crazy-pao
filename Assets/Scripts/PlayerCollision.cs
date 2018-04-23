@@ -90,6 +90,13 @@ public class PlayerCollision : MonoBehaviour {
 //			print ("this type is: " + col.GetComponent<MeshFilter> ().mesh + " " + col.GetComponent<MeshFilter> ().mesh.vertices[1]);
 			this.GetComponent<MeshFilter> ().mesh = col.GetComponent<MeshFilter> ().mesh;
 			//Debug.Log (col.GetComponent<MeshFilter>().mesh);
+
+			if (col.transform.localScale.y < 2f) {//if not moving obstacle, scale as the collider's half
+				//Debug.Log(this.gameObject.transform.localScale);
+				//Debug.Log(col.transform.localScale);
+				this.gameObject.transform.localScale = col.transform.localScale * 0.5f;
+			} else
+				this.gameObject.transform.localScale = new Vector3 (1,1,1);
 			// else
 			//restart game
 			Destroy(col.gameObject);
